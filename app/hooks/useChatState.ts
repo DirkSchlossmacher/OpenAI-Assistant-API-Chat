@@ -23,8 +23,7 @@ export const useChatState = () => {
   const [threadId, setThreadId] = useState<string | null>(null);
   const [isStartLoading, setStartLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
-  const [initialThreadMessage, setInitialThreadMessage] = useState('You are a Pirate! introduce yourself');
-  const [statusMessage, setStatusMessage] = useState('');
+  const [initialThreadMessage, setInitialThreadMessage] = useState('You are a supersmart assitant to senior leaders from a consultancy that is specialized on topics in the interlink of business and IT! And you love to help AdEx Partners to prosper and to grow! Introduce yourself and offer your help to the user.');  const [statusMessage, setStatusMessage] = useState('');
   const counter = useRef(0);
   const inputRef = useRef(null);
   const formRef = useRef(null);
