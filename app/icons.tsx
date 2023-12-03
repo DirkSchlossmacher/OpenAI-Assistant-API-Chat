@@ -33,10 +33,18 @@ export const GithubIcon = () => {
   );
 };
 
+
+
 export const AdExIcon = () => {
   return (
-    <svg version="1.1" id="Logo" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-      viewBox="0 0 1190.55 1190.55" style="enable-background:new 0 0 1190.55 1190.55;" xml:space="preserve">
+    <svg 
+    xmlns="http://www.w3.org/2000/svg" 
+    width="20"
+    height="20"
+    viewBox="0 0 1190.55 1190.55" 
+    x="0px" y="0px"
+    style={{ enableBackground: 'new 0 0 1190.55 1190.55' }}
+    xml:space="preserve">
     <style type="text/css">
       .st0{fill:#0A5794;}
       .st1{fill:#658EC4;}
@@ -46,8 +54,6 @@ export const AdExIcon = () => {
       .st5{letter-spacing:37;}
     </style>
     <font horiz-adv-x="2048">
-    <!-- Roboto is a trademark of Google. -->
-    <!-- Copyright: Copyright 2021 Adobe System Incorporated. All rights reserved. -->
     <font-face font-family="Roboto-Medium" units-per-em="2048" underline-position="-150" underline-thickness="100"/>
     <missing-glyph horiz-adv-x="908" d="M808,0l-708,0l0,1456l708,0M754,84l0,1287l-274,-643M154,1359l0,-1263l268,632M194,54l515,0l-258,606M451,796l258,606l-515,0z"/>
     <glyph unicode="A" horiz-adv-x="1363" d="M963,339l-564,0l-118,-339l-263,0l550,1456l227,0l551,-1456l-264,0M470,543l422,0l-211,604z"/>
