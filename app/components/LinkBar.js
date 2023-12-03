@@ -7,7 +7,7 @@ const LinkBar = () => (
       target="_blank"
       className="rounded-lg p-2 transition-colors duration-200 hover:bg-stone-100 sm:bottom-auto"
     >
-      <VercelIcon />
+      <AdExLogo />
     </a>
     <a
       href="/github"
