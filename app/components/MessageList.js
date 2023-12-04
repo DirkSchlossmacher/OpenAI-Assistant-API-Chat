@@ -38,9 +38,10 @@ const Message = ({ message, progress, isFirstMessage, fileDetails }) => {
               className="prose mt-1 break-words prose-p:leading-relaxed"
               remarkPlugins={[remarkGfm]}
               components={{
-                a: (props) => (
-                  <a {...props} target="_blank" rel="noopener noreferrer" />
-                ),
+                a: ({ node, ...props }) => {
+                  console.log('Link props:', props); // Add this line to log props to the console
+                  return <a {...props} target="_blank" rel="noopener noreferrer" />;
+                },
               }}
             >
               {message.content}
