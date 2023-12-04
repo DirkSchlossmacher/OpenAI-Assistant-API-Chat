@@ -3,6 +3,8 @@ import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import Toaster from "./toaster";
 import { Analytics } from "@vercel/analytics/react";
+import { SessionProvider } from "next-auth/react";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,3 +26,44 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     </html>
   );
 }
+
+/*
+// pages/_app.tsx or the equivalent in your project
+
+function MyApp({ Component, pageProps: { session, ...pageProps } }) {
+  return (
+    <SessionProvider session={session}>
+      <Component {...pageProps} />
+    </SessionProvider>
+  );
+}
+
+export default MyApp;
+
+
+// Any React component
+import { useSession, signIn, signOut } from "next-auth/react";
+
+function AuthButton() {
+  const { data: session } = useSession();
+
+  if (session) {
+    return (
+      <>
+        Signed in as {session.user.email}
+        <button onClick={() => signOut()}>Sign out</button>
+      </>
+    );
+  }
+
+  return (
+    <>
+      Not signed in
+
+      <button onClick={() => signIn('azure-ad')}>Sign in with Azure AD</button>
+    </>
+  );
+}
+
+export default AuthButton;
+*/
