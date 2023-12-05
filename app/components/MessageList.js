@@ -39,7 +39,7 @@ const Message = ({ message, progress, isFirstMessage, fileDetails }) => {
               remarkPlugins={[remarkGfm]}
               components={{
                 a: ({ node, ...props }) => {
-                  console.log('Link props:', props); // Add this line to log props to the console
+                  // console.log('Link props:', props); // Add this line to log props to the console
                   return <a {...props} target="_blank" rel="noopener noreferrer" />;
                 },
               }}
