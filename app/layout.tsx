@@ -9,9 +9,10 @@ import Toaster from "./toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Agent42",
-  description: "OpenAI Assistant",
-  metadataBase: "https://mydomain.com",
+  title: "AdEx GenAI Assistants App",
+  description:
+    "OpenAI Assistant",
+    metadataBase: 'https://mydomain.com'
 };
 
 export default async function RootLayout({
