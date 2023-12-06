@@ -7,6 +7,7 @@ import { useSearchParams, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { InputForm, LinkBar, MessageList, WelcomeForm } from './components';
 import { useChatManager, useChatState, useStartAssistant } from './hooks';
+import { monitoringUpsert } from './utils/cloud/redisRestClient';
 
 /*
 interface assistantConfigAdEx  {
@@ -22,7 +23,7 @@ if process.env.ASSISTANT_CONFIG_ADEX!=null){
 }
 */
 
-export default function Chat() {
+export default async function Chat() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const {data: sessionData} = useSession();
@@ -66,6 +67,9 @@ export default function Chat() {
 
   useChatManager(setChatMessages, setStatusMessage, setChatManager, setIsMessageLoading, setProgress, setIsLoadingFirstMessage);
   useStartAssistant(assistantId, chatManager, initialThreadMessage);
+
+  const dateKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+  await monitoringUpsert(assistantId, searchParams.get("token")??"", pathname, dateKey);
 
   const startChatAssistant = async () => {
     setIsButtonDisabled(true);
