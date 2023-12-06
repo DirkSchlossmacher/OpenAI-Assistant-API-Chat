@@ -9,7 +9,7 @@
  * Path: /api/listMessages
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 // Initialize OpenAI client using the API key from environment variables
@@ -31,16 +31,17 @@ export async function POST(req: NextRequest) {
 
     // Retrieve messages for the given thread ID using the OpenAI API
     const messages = await openai.beta.threads.messages.list(threadId);
-    
+
     messages.data.forEach((message, index) => {
       console.log(`Message ${index + 1} content:`, message.content);
     });
     // Log the count of retrieved messages for debugging
     console.log(`Retrieved ${messages.data.length} messages`);
 
-    
     // Find the first assistant message
-    const assistantMessage = messages.data.find(message => message.role === 'assistant');
+    const assistantMessage = messages.data.find(
+      (message) => message.role === "assistant",
+    );
 
     if (!assistantMessage) {
       return NextResponse.json({ error: "No assistant message found" });
@@ -52,10 +53,16 @@ export async function POST(req: NextRequest) {
     }
 
     if (assistantMessageContent.type !== "text") {
-      return NextResponse.json({ error: "Assistant message is not text, only text supported in this demo" });
+      return NextResponse.json({
+        error:
+          "Assistant message is not text, only text supported in this demo",
+      });
     }
     // Return the retrieved messages as a JSON response
-    return NextResponse.json({ ok: true, messages: assistantMessageContent.text.value });
+    return NextResponse.json({
+      ok: true,
+      messages: assistantMessageContent.text.value,
+    });
   } catch (error) {
     // Log any errors that occur during the process
     console.error(`Error occurred: ${error}`);

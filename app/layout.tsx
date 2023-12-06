@@ -6,17 +6,19 @@ import "./globals.css";
 import SessionProvider from "./providers/SessionProviders";
 import Toaster from "./toaster";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Agent42",
-  description:
-    "OpenAI Assistant",
-    metadataBase: 'https://mydomain.com'
+  description: "OpenAI Assistant",
+  metadataBase: "https://mydomain.com",
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const session = await getServerSession();
   return (
     <html lang="en">
@@ -30,4 +32,3 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     </html>
   );
 }
-

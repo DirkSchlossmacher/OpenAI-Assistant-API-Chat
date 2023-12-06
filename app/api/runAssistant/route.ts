@@ -1,19 +1,17 @@
 /**
  * API Route - Run Assistant
- * 
- * This API route is crafted to facilitate interaction with the OpenAI API, specifically for running 
- * a session with an AI assistant. The route is responsible for receiving the assistant ID and thread ID, 
- * which are crucial for identifying the specific assistant and conversation thread to interact with. 
- * Upon receiving these IDs, the route invokes the OpenAI API to create a new run (interaction) within 
+ *
+ * This API route is crafted to facilitate interaction with the OpenAI API, specifically for running
+ * a session with an AI assistant. The route is responsible for receiving the assistant ID and thread ID,
+ * which are crucial for identifying the specific assistant and conversation thread to interact with.
+ * Upon receiving these IDs, the route invokes the OpenAI API to create a new run (interaction) within
  * the specified thread and then returns the run ID for tracking and further operations.
- * 
+ *
  * Path: /api/runAssistant
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-
-
 
 // Initialize the OpenAI client with the API key. The API key is essential for authenticating
 // and authorizing the requests to OpenAI's services.
@@ -29,7 +27,7 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const assistantId = data.assistantId;
     const threadId = data.threadId;
-    
+
     // Logging the received IDs for debugging purposes. This helps in verifying that
     // the correct IDs are being processed.
     console.log(`Inside -runAssistant --> assistantId: ${assistantId}`);
@@ -51,6 +49,9 @@ export async function POST(req: NextRequest) {
     // Handling and logging any errors that occur during the process. This includes errors in
     // API requests, data extraction, or any other part of the interaction flow.
     console.error(`Error in -runAssistant: ${error}`);
-    return NextResponse.json({ error: 'Failed to run assistant' }, { status: 500 });
+    return NextResponse.json(
+      { error: "Failed to run assistant" },
+      { status: 500 },
+    );
   }
 }

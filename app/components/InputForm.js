@@ -1,15 +1,38 @@
-import clsx from 'clsx';
-import Textarea from 'react-textarea-autosize';
-import { SendIcon, LoadingCircle, DocumentIcon, XIcon, ImageIcon } from '../icons';
+import clsx from "clsx";
+import Textarea from "react-textarea-autosize";
+import {
+  SendIcon,
+  LoadingCircle,
+  DocumentIcon,
+  XIcon,
+  ImageIcon,
+} from "../icons";
 
-const InputForm = ({ input, setInput, handleFormSubmit, inputRef, formRef, disabled, chatStarted, isSending, isLoading, handleChatFilesUpload, chatFileDetails, removeChatFile }) => {
+const InputForm = ({
+  input,
+  setInput,
+  handleFormSubmit,
+  inputRef,
+  formRef,
+  disabled,
+  chatStarted,
+  isSending,
+  isLoading,
+  handleChatFilesUpload,
+  chatFileDetails,
+  removeChatFile,
+}) => {
   return (
     <div className="noprint fixed bottom-0 flex w-full flex-col items-center space-y-3 bg-gradient-to-b from-transparent via-gray-100 to-gray-100 p-5 pb-3 sm:px-0">
-      <div className="flex flex-col items-stretch w-full max-w-screen-md">
-        <div className="flex flex-wrap items-center space-x-2 mb-2">
+      <div className="flex w-full max-w-screen-md flex-col items-stretch">
+        <div className="mb-2 flex flex-wrap items-center space-x-2">
           {chatFileDetails.map((file) => (
             <div key={file.name} className="flex items-center space-x-1">
-              {file.type.startsWith('image') ? <ImageIcon className="h-3 w-3" /> : <DocumentIcon className="h-3 w-3" />}
+              {file.type.startsWith("image") ? (
+                <ImageIcon className="h-3 w-3" />
+              ) : (
+                <DocumentIcon className="h-3 w-3" />
+              )}
               <span className="text-xs text-gray-500">{file.name}</span>
               <button
                 type="button"
@@ -43,20 +66,20 @@ const InputForm = ({ input, setInput, handleFormSubmit, inputRef, formRef, disab
               }
             }}
             spellCheck={false}
-            className="w-full pr-20 pl-10 focus:outline-none" 
+            className="w-full pl-10 pr-20 focus:outline-none"
             disabled={disabled || !chatStarted}
           />
           <input
             type="file"
             id="file-upload"
-            style={{ display: 'none' }}
+            style={{ display: "none" }}
             onChange={handleChatFilesUpload}
             disabled={disabled || !chatStarted || isSending}
             multiple
             accept=".c,.cpp,.csv,.docx,.html,.java,.json,.md,.pdf,.pptx,.txt,.tex,image/jpeg,image/png"
           />
-          <label 
-            htmlFor="file-upload" 
+          <label
+            htmlFor="file-upload"
             className={clsx(
               "absolute inset-y-0 left-3 my-auto flex h-8 w-8 items-center justify-center rounded-md transition-all",
               disabled || !chatStarted || isSending
@@ -64,7 +87,7 @@ const InputForm = ({ input, setInput, handleFormSubmit, inputRef, formRef, disab
                 : "bg-blue-500 hover:bg-blue-600",
             )}
           >
-            <span className="text-white text-lg">+</span>
+            <span className="text-lg text-white">+</span>
           </label>
           <button
             className={clsx(
