@@ -4,7 +4,7 @@ import { z } from "zod";
 const AssistantsConfigSchema = z.array(z.object({
     "assistantId": z.string(),
     "urlPath": z.string(),
-    "restriction": z.enum(["none", "emails"]),
+    "restriction": z.enum(["none", "emails"]).optional(),
     "emails": z.array(z.string().email()),
 }))
 
@@ -41,4 +41,8 @@ export const env = createEnv({
         NEXT_PUBLIC_ASSISTANTS_CONFIG: JSON.parse(process.env.NEXT_PUBLIC_ASSISTANTS_CONFIG || "[]"),
     },
     skipValidation: !!process.env.SKIP_ENV_VALIDATION,
+    onValidationError: (error) => {
+        console.error(error);
+        throw error;
+    },
 });

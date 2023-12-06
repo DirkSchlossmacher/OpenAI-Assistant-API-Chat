@@ -15,7 +15,6 @@ const Root: NextPage = () => {
   const assistantID = useMapPathToAssistantId("default");
 
   if (!userHasAccess || !assistantID) {
-    console.log(userHasAccess, assistantID);
     return <div>Access denied</div>;
   }
 
