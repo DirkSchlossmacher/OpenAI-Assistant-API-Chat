@@ -8,13 +8,19 @@ import { useChatState, useChatManager, useStartAssistant } from './hooks';
 import { useEffect } from "react";
 import { useSession, signIn } from "next-auth/react";
 
+import { usePathname, useSearchParams } from "next/navigation";
+
+
 export default function Chat() {
+  const searchParams = useSearchParams();
   const {data: sessionData} = useSession();
+  const token = searchParams.get("token");
   useEffect(() => {
-        if (!sessionData) {
-            signIn("azure-ad");
-        }
-    }, [sessionData]);
+    if (!sessionData && token !== process.env.NEXT_PUBLIC_AUTH_TOKEN) {
+      signIn("auth");
+
+      }
+    }, [sessionData, token]);
   const {
     assistantName, setAssistantName,
     assistantModel, setAssistantModel,
@@ -42,13 +48,8 @@ export default function Chat() {
     chatFileDetails, setChatFileDetails,
   } = useChatState();
 
-  
-
-
-
   useChatManager(setChatMessages, setStatusMessage, setChatManager, setIsMessageLoading, setProgress, setIsLoadingFirstMessage);
   useStartAssistant(assistantId, chatManager, initialThreadMessage);
-
 
   const startChatAssistant = async () => {
     setIsButtonDisabled(true);
