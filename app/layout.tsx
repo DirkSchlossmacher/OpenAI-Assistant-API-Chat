@@ -3,7 +3,9 @@ import { Inter } from "next/font/google";
 import { ReactNode } from "react";
 import Toaster from "./toaster";
 import { Analytics } from "@vercel/analytics/react";
-import { SessionProvider } from "next-auth/react";
+import { getServerSession } from "next-auth";
+import SessionProvider from "./providers/SessionProviders"
+// ? import { SessionProvider } from "next-auth/react";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -15,12 +17,16 @@ export const metadata = {
     metadataBase: 'https://mydomain.com'
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={inter.className}>
-        {children}
-        <Toaster />
+        <SessionProvider session={session}>
+          {children}
+          <Toaster />
+        </SessionProvider>
+        
       </body>
       <Analytics />
     </html>
