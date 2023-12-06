@@ -16,6 +16,13 @@ export const useUserHasAccess = (assistant: string) => {
       return;
     }
 
+    const requiresAuth = config.restriction === "emails";
+
+    if (!requiresAuth) {
+      setUserHasAccess(true);
+      return;
+    }
+
     if (
       sessionData?.user?.email &&
       config.emails.includes(sessionData?.user?.email)
