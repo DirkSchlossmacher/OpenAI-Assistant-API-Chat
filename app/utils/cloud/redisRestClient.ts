@@ -10,7 +10,7 @@ const getRedisClient = () => {
 
     if (!redisUrl || !redisToken) {
       // Handle missing environment variables more gracefully
-      console.error('The Upstash Redis URL and token must be provided.');
+      console.error('The Upstash Redis URL and token must be provided.', redisUrl);
       return null; // Or throw an error if that's the desired behavior
     }
 
@@ -76,6 +76,7 @@ export const monitoringUpsert = async (
     path: string | undefined,
     dateKey: string
   ): Promise<void> => {
+
     const redis = getRedisClient();
     if (!redis) {
       console.error('Redis client is not initialized.');
