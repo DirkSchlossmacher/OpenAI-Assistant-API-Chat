@@ -45,7 +45,7 @@ export const AdExLogo = () => {
       xmlns="http://www.w3.org/2000/svg" 
       fill="currentColor"
       viewBox="0 0 2480 2480" 
-      enable-background="new 0 0 2480 2480"
+      enableBackground="new 0 0 2480 2480"
     >
     <path fill="#FFFFFF" opacity="1.000000" stroke="none" 
       d="

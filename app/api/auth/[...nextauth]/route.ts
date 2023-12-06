@@ -1,9 +1,7 @@
 // pages/api/auth/[...nextauth].ts
-import NextAuth from "next-auth";
-import {
-  getServerSession,
-  type DefaultSession,
-  type NextAuthOptions,
+import NextAuth, {
+    type DefaultSession,
+    type NextAuthOptions
 } from "next-auth";
 
 import AzureADProvider from "next-auth/providers/azure-ad";
@@ -38,6 +36,7 @@ declare module "next-auth" {
 const authOptions: NextAuthOptions = {
   callbacks: {
       session: ({ session, token }) => ({
+            
           ...session,
           user: {
               ...session.user,
