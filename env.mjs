@@ -12,7 +12,7 @@ export const env = createEnv({
     server: {
         NODE_ENV: z.enum(["development", "test", "production"]),
 
-        NEXTAUTH_URL: z.string().url(),
+        NEXTAUTH_URL: z.string(),
         NEXTAUTH_SECRET: z.string().min(18),
 
         AZURE_AD_CLIENT_ID: z.string(),
