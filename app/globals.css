@@ -2,8 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-@media print { 
-.noprint { 
- display: none!important;
-} 
+@media print {
+  .noprint {
+    display: none !important;
+  }
 }

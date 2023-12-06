@@ -8,12 +8,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'space-grey': {
-          light: '#ededed' // Replace this with the hex code for light space-grey you prefer
+        "space-grey": {
+          light: "#ededed", // Replace this with the hex code for light space-grey you prefer
         },
       },
     },
   },
   plugins: [require("@tailwindcss/typography")],
 };
-

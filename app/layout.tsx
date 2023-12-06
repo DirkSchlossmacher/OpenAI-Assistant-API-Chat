@@ -6,7 +6,6 @@ import "./globals.css";
 import SessionProvider from "./providers/SessionProviders";
 import Toaster from "./toaster";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -16,7 +15,11 @@ export const metadata = {
     metadataBase: 'https://mydomain.com'
 };
 
-export default async function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({
+  children,
+}: {
+  children: ReactNode;
+}) {
   const session = await getServerSession();
   return (
     <html lang="en">
@@ -30,4 +33,3 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
     </html>
   );
 }
-

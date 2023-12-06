@@ -1,3 +1,5 @@
+await import("./env.mjs");
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   redirects: async () => {
@@ -13,10 +15,7 @@ const nextConfig = {
         permanent: true,
       },
     ];
-  },
-  env: {
-    REACT_APP_ASSISTANT_ID: process.env.REACT_APP_ASSISTANT_ID,
-  },
+  }
 };
 
-module.exports = nextConfig;
+export default nextConfig;

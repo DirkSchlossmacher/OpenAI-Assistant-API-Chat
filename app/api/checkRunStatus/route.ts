@@ -14,7 +14,7 @@
  * Path: /api/checkRunStatus
  */
 
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
 const openai = new OpenAI({
@@ -29,7 +29,9 @@ export async function POST(req: NextRequest) {
     const runId = data.runId;
 
     // Log the received thread ID and run ID for debugging
-    console.log(`Received request with threadId: ${threadId} and runId: ${runId}`);
+    console.log(
+      `Received request with threadId: ${threadId} and runId: ${runId}`,
+    );
 
     // Retrieve the status of the run for the given thread ID and run ID using the OpenAI API
     const runStatus = await openai.beta.threads.runs.retrieve(threadId, runId);
