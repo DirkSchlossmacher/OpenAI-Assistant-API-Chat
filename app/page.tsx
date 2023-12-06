@@ -5,9 +5,8 @@
 import { LinkBar, MessageList, WelcomeForm, InputForm } from './components';
 import { useChatState, useChatManager, useStartAssistant } from './hooks';
 
-import { signIn } from "next-auth/react";
 import { useEffect } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 
 export default function Chat() {
   const {data: sessionData} = useSession();
