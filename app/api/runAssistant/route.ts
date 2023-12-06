@@ -10,8 +10,10 @@
  * Path: /api/runAssistant
  */
 
+import { monitoringUpsert } from "@/app/utils/cloud/redisRestClient";
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
+
 
 // Initialize the OpenAI client with the API key. The API key is essential for authenticating
 // and authorizing the requests to OpenAI's services.
@@ -27,6 +29,11 @@ export async function POST(req: NextRequest) {
     const data = await req.json();
     const assistantId = data.assistantId;
     const threadId = data.threadId;
+
+    const dateKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+    
+    await monitoringUpsert(assistantId??"", "", "", dateKey);
+
 
     // Logging the received IDs for debugging purposes. This helps in verifying that
     // the correct IDs are being processed.
