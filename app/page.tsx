@@ -3,14 +3,28 @@
 "use client";
 
 import { signIn, useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { InputForm, LinkBar, MessageList, WelcomeForm } from './components';
 import { useChatManager, useChatState, useStartAssistant } from './hooks';
 
+/*
+interface assistantConfigAdEx  {
+  path: string | undefined;
+  assistantId: string;
+  restriction?: string;
+  emails: [string];
+}
+
+if process.env.ASSISTANT_CONFIG_ADEX!=null){
+  const assistantConfigAdEx : assistantConfigAdEx = process.env.ASSISTANT_CONFIG_ADEX;
+
+}
+*/
 
 export default function Chat() {
   const searchParams = useSearchParams();
+  const pathname = usePathname();
   const {data: sessionData} = useSession();
   
   useEffect(() => {
