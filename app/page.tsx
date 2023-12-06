@@ -68,9 +68,6 @@ export default async function Chat() {
   useChatManager(setChatMessages, setStatusMessage, setChatManager, setIsMessageLoading, setProgress, setIsLoadingFirstMessage);
   useStartAssistant(assistantId, chatManager, initialThreadMessage);
 
-  const dateKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
-  await monitoringUpsert(assistantId??"", searchParams.get("token")??"", pathname??"", dateKey);
-
   const startChatAssistant = async () => {
     setIsButtonDisabled(true);
     setStartLoading(true);
