@@ -1,9 +1,7 @@
 // pages/api/auth/[...nextauth].ts
-import NextAuth from "next-auth";
-import {
-  getServerSession,
-  type DefaultSession,
-  type NextAuthOptions,
+import NextAuth, {
+    type DefaultSession,
+    type NextAuthOptions
 } from "next-auth";
 
 import AzureADProvider from "next-auth/providers/azure-ad";
@@ -17,6 +15,7 @@ import AzureADProvider from "next-auth/providers/azure-ad";
 */
 declare module "next-auth" {
   interface Session extends DefaultSession {
+      error: string | undefined;
       user: {
           id: string;
           // ...other properties
@@ -73,13 +72,23 @@ declare module "next-auth" {
 */
 const authOptions: NextAuthOptions = {
   callbacks: {
-      session: ({ session, token }) => ({
-          ...session,
-          user: {
-              ...session.user,
-              id: token.sub,
-          }
-      }),
+      session: ({ session, token }) => {
+
+        let error: string | undefined = session.error;
+
+        if (!token?.email) {
+            error = "Email is missing"
+        }
+
+        return {
+            ...session,
+            error,
+            user: {
+                ...session.user,
+                id: token.sub,
+            }
+        }
+      },
   },
   providers: [
       AzureADProvider({
@@ -98,17 +107,3 @@ const authOptions: NextAuthOptions = {
 const handler = NextAuth(authOptions);
  
 export { handler as GET, handler as POST };
-
-/*
-,
-          if (!token?.email) {
-            console.error("Email is required for session handling");
-            // Modify the session object as needed or return a modified session
-            // For example, you might want to set a flag indicating an incomplete session
-            session.error = "Email is missing";
-            return session; // Return the modified session
-          },
-          if (!token?.email) {          
-            console.error("Email: ", token.email);
-          }
-*/

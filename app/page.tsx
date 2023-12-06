@@ -2,25 +2,27 @@
 
 "use client";
 
-import { LinkBar, MessageList, WelcomeForm, InputForm } from './components';
-import { useChatState, useChatManager, useStartAssistant } from './hooks';
-
+import { signIn, useSession } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-import { useSession, signIn } from "next-auth/react";
-
-import { usePathname, useSearchParams } from "next/navigation";
+import { InputForm, LinkBar, MessageList, WelcomeForm } from './components';
+import { useChatManager, useChatState, useStartAssistant } from './hooks';
 
 
 export default function Chat() {
   const searchParams = useSearchParams();
   const {data: sessionData} = useSession();
-  const token = searchParams.get("token");
+  
   useEffect(() => {
-    if (!sessionData && token !== process.env.NEXT_PUBLIC_AUTH_TOKEN) {
-      signIn("auth");
+    const token = searchParams.get("token");
 
-      }
-    }, [sessionData, token]);
+    if (sessionData || token === process.env.NEXT_PUBLIC_AUTH_TOKEN) {
+      return;
+    }
+
+    signIn("azure-ad")
+  }, [sessionData]);
+
   const {
     assistantName, setAssistantName,
     assistantModel, setAssistantModel,
