@@ -8,7 +8,7 @@ import { useMapPathToAssistantId } from "../hooks/useMapPathToAssistantId";
 import { useUserHasAccess } from "../hooks/useUserHasAccess";
 
 const Assistant: NextPage = () => {
-  useEnforceAuthenticated();
+  const isAuthenticated = useEnforceAuthenticated();
 
   const { assistant } = useParams<{
     assistant: string;
@@ -17,8 +17,7 @@ const Assistant: NextPage = () => {
   const userHasAccess = useUserHasAccess(assistant);
   const assistantID = useMapPathToAssistantId(assistant);
 
-  if (!userHasAccess || !assistantID) {
-    console.log(userHasAccess, assistantID);
+  if (!userHasAccess || !assistantID || !isAuthenticated) {
     return <div>Access denied</div>;
   }
 

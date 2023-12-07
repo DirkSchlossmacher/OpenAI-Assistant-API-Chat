@@ -9,12 +9,11 @@ import { useMapPathToAssistantId } from "./hooks/useMapPathToAssistantId";
 import { useUserHasAccess } from "./hooks/useUserHasAccess";
 
 const Root: NextPage = () => {
-  useEnforceAuthenticated();
-
+  const isAuthenticated = useEnforceAuthenticated();
   const userHasAccess = useUserHasAccess("default");
   const assistantID = useMapPathToAssistantId("default");
 
-  if (!userHasAccess || !assistantID) {
+  if (!userHasAccess || !assistantID || !isAuthenticated) {
     return <div>Access denied</div>;
   }
 
