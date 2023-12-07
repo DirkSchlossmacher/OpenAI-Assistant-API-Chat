@@ -1,9 +1,12 @@
 import { signIn, useSession } from "next-auth/react";
-import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { env } from "../../env.mjs";
 
 export const useEnforceAuthenticated = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const pathname = usePathname();
   const searchParams = useSearchParams();
   const { data: sessionData } = useSession();
 
@@ -11,9 +14,16 @@ export const useEnforceAuthenticated = () => {
     const token = searchParams.get("token");
 
     if (sessionData || token === env.NEXT_PUBLIC_AUTH_TOKEN) {
+      setIsAuthenticated(true);
       return;
     }
 
-    signIn("azure-ad");
+    const callbackUrl = `${pathname}${
+      searchParams.toString() ? `?${searchParams.toString()}` : ""
+    }`;
+
+    signIn("azure-ad", { callbackUrl });
   }, [sessionData]);
+
+  return isAuthenticated;
 };
