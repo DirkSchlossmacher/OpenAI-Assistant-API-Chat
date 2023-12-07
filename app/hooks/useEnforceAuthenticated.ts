@@ -23,7 +23,7 @@ export const useEnforceAuthenticated = () => {
     }`;
 
     signIn("azure-ad", { callbackUrl });
-  }, [sessionData]);
+  }, [sessionData, pathname, searchParams]);
 
   return isAuthenticated;
 };
