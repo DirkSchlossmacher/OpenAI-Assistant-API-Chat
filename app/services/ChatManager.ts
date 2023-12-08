@@ -326,8 +326,8 @@ class ChatManager {
         console.log("Assistant response fetched. Adding to chat state...");
         console.log("detailed response:", response);
         console.log("annotations:", response.annotations);
-        if (response.annotations && response.annotations.file_path) {
-          console.log("URL:", `https://api.openai.com/v1/files/${response.annotations.file_path.file_id}/content`, response.annotations.file_path.file_id);
+        if (response.annotations && nse.annotations[0].file_path) {
+          console.log("URL:", `https://api.openai.com/v1/files/${response.annotations.file_path.file_id}/content`, response.annotations[0].file_path.file_id);
           console.log("name:", response.annotations.text);
         } else {
           console.error("File path or file ID is missing in the response annotations.");
