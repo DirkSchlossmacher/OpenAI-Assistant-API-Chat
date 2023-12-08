@@ -165,7 +165,7 @@ class ChatManager {
         this.state.setStatusMessage("Received messages...");
 
         // Add the assistant's response to the messages
-        const newMessage = { role: "assistant", content: response };
+        const newMessage = { role: "assistant", content: response.messages };
         this.state.setStatusMessage("Adding messages to chat...");
 
         this.state.messages = [...this.state.messages, newMessage];
@@ -237,7 +237,7 @@ class ChatManager {
         this.state.setStatusMessage("Received messages...");
 
         // Add the assistant's response to the messages
-        const newMessage = { role: "assistant", content: assistantResponse };
+        const newMessage = { role: "assistant", content: assistantResponse.messages };
         this.state.setStatusMessage("Adding messages to chat...");
 
         this.state.messages = [...this.state.messages, newMessage];
@@ -326,7 +326,7 @@ class ChatManager {
         console.log("Assistant response fetched. Adding to chat state...");
 
         // Add the assistant's response to the messages
-        const newAssistantMessage = { role: "assistant", content: response };
+        const newAssistantMessage = { role: "assistant", content: response.messages };
         this.state.messages = [...this.state.messages, newAssistantMessage];
         this.state.setChatMessages(this.state.messages);
       } else {

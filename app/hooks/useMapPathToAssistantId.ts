@@ -5,7 +5,7 @@ export const useMapPathToAssistantId = (path: string) => {
   const [assistantId, setAssistantId] = useState<string | null>(null);
 
   useEffect(() => {
-    console.log("path:",path,"assistant config:",env.NEXT_PUBLIC_ASSISTANTS_CONFIG);
+    // console.log("path:",path,"assistant config:",env.NEXT_PUBLIC_ASSISTANTS_CONFIG);
 
     const config = env.NEXT_PUBLIC_ASSISTANTS_CONFIG.find(
       (config) => config.urlPath === path,

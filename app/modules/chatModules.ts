@@ -43,7 +43,7 @@ export const fetchAssistantResponse = async (
   setStatusMessage: (message: string) => void,
   setProgress: (progress: number) => void,
   initialProgress: number,
-): Promise<string> => {
+): Promise<Record<string, any>> => {
   try {
     const startTime = Date.now(); // Get the current time at the start
     setStatusMessage("Fetching assistant response...");
@@ -74,7 +74,7 @@ export const fetchAssistantResponse = async (
     setStatusMessage("Assistant response fetched successfully.");
     setProgress(100); // Set progress to 100% after completion
     const response = await listMessages(threadId, runId);
-    return response.messages;
+    return response;
   } catch (error) {
     setProgress(0); // Reset progress in case of error
     if (error instanceof Error) {

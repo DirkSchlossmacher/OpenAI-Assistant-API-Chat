@@ -62,6 +62,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({
       ok: true,
       messages: assistantMessageContent.text.value,
+      annotations: assistantMessageContent.text.annotations,
     });
   } catch (error) {
     // Log any errors that occur during the process
