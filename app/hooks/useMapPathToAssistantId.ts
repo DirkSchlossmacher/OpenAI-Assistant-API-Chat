@@ -9,6 +9,8 @@ export const useMapPathToAssistantId = (path: string) => {
       (config) => config.urlPath === path,
     );
 
+    console.log("path:",path,"assistant config:",config);
+
     if (!config) {
       setAssistantId(null);
       return;
