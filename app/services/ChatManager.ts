@@ -324,7 +324,12 @@ class ChatManager {
           0,
         );
         console.log("Assistant response fetched. Adding to chat state...");
-
+        console.log("detailed response:", response);
+        console.log("annotations:", response.annotations);
+        console.log("name:", response.annotations.text);
+        console.log("URL:", `https://api.openai.com/v1/files/${response.annotations.file_path.file_id}/content`, response.annotations.file_path.file_id);
+          
+  
         // Add the assistant's response to the messages
         const newAssistantMessage = { role: "assistant", content: response.messages };
         this.state.messages = [...this.state.messages, newAssistantMessage];
