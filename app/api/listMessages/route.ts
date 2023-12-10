@@ -39,7 +39,7 @@ function replaceMarkdownLinks(text: string, annotations: any[]): string {
     if (annotation.type === "file_path") {
       const filePath = annotation.text;
       const fileId = annotation.file_path.file_id;
-      const downloadPath = `/api/downloadFile/${fileId}/`;
+      const downloadPath = `/api/downloadFile/${fileId}/${filePath}`;
       // Create a regex pattern to match the markdown link format
       const pattern = new RegExp(`\\[([^\\]]+)\\]\\(${filePath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\)`, 'g');
       text = text.replace(pattern, (match, p1) => `[${p1}](${downloadPath})`);
