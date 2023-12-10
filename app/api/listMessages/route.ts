@@ -17,6 +17,23 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+
+// Function to replace markdown links with the specified format
+function replaceMarkdownLinks(text: string, annotations: any[]): string {
+  annotations.forEach((annotation) => {
+    if (annotation.type === "file_path") {
+      const filePath = annotation.text;
+      const fileId = annotation.file_path.file_id;
+      const downloadPath = `/api/downloadFile/${fileId}/`;
+      text = text.replace(
+        new RegExp(`\\[${filePath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\]`, 'g'),
+        `[/api/downloadFile/${fileId}/${filePath}]`
+      );
+    }
+  });
+  return text;
+}
+
 // Define an asynchronous POST function to handle incoming requests
 export async function POST(req: NextRequest) {
   try {
@@ -58,13 +75,28 @@ export async function POST(req: NextRequest) {
           "Assistant message is not text, only text supported in this demo",
       });
     }
+
+    // Use the replaceMarkdownLinks function to process the message content
+    const processedText = replaceMarkdownLinks(
+      assistantMessageContent.text.value,
+      assistantMessageContent.text.annotations
+    );
+
+    // Return the processed messages as a JSON response
+    return NextResponse.json({
+      ok: true,
+      messages: processedText,
+      annotations: assistantMessageContent.text.annotations,
+/*    
     // Return the retrieved messages as a JSON response
     return NextResponse.json({
       ok: true,
       messages: assistantMessageContent.text.value,
       annotations: assistantMessageContent.text.annotations,
+*/
     });
   } catch (error) {
+
     // Log any errors that occur during the process
     console.error(`Error occurred: ${error}`);
   }
