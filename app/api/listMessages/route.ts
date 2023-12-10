@@ -17,7 +17,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
-
+/*
 // Function to replace markdown links with the specified format
 function replaceMarkdownLinks(text: string, annotations: any[]): string {
   annotations.forEach((annotation) => {
@@ -29,6 +29,20 @@ function replaceMarkdownLinks(text: string, annotations: any[]): string {
         new RegExp(`\\[${filePath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\]`, 'g'),
         `[/api/downloadFile/${fileId}/${filePath}]`
       );
+    }
+  });
+  return text;
+}
+*/
+function replaceMarkdownLinks(text: string, annotations: any[]): string {
+  annotations.forEach((annotation) => {
+    if (annotation.type === "file_path") {
+      const filePath = annotation.text;
+      const fileId = annotation.file_path.file_id;
+      const downloadPath = `/api/downloadFile/${fileId}/`;
+      // Create a regex pattern to match the markdown link format
+      const pattern = new RegExp(`\\[([^\\]]+)\\]\\(${filePath.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&')}\\)`, 'g');
+      text = text.replace(pattern, (match, p1) => `[${p1}](${downloadPath})`);
     }
   });
   return text;
