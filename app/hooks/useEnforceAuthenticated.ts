@@ -15,6 +15,7 @@ export const useEnforceAuthenticated = () => {
 
     if (sessionData || token === env.NEXT_PUBLIC_AUTH_TOKEN) {
       setIsAuthenticated(true);
+      console.log("pathname:".pathname);
       return;
     }
 

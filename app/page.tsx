@@ -13,6 +13,8 @@ const Root: NextPage = () => {
   const userHasAccess = useUserHasAccess("default");
   const assistantID = useMapPathToAssistantId("default");
 
+  console.log("app/page.tsx: isAuthenticated:", isAuthenticated);
+
   if (!userHasAccess || !assistantID || !isAuthenticated) {
     return <div>Access denied</div>;
   }
