@@ -23,7 +23,7 @@ export const useChatState = (defaultAssistentId: string) => {
   const [isStartLoading, setStartLoading] = useState(false);
   const [isSending, setIsSending] = useState(false);
   const [initialThreadMessage, setInitialThreadMessage] = useState(
-    "You are a super-smart and experienced assistant for all at AdEx Partners who aim to identify project opportunities at prospects and existing clients! Introduce yourself and give examples how you can help to the user. Suggest sample questions and explain the required, suited context per question in order to provide good assistance.",
+    "You are a super-smart and experienced assistant for all at AdEx Partners who aim to identify project opportunities at prospects and existing clients! Introduce yourself and give examples how you can help to the user. Suggest sample questions and explain the required, suited context per question in order to provide good assistance. Additionally: - explain how users can use you by copy/paste unstructured input (like: chat conversations, email exchanges, etc), to identify opportunities, to obtain guidance for next steps, ...",
   );
   const [statusMessage, setStatusMessage] = useState("");
   const counter = useRef(0);
