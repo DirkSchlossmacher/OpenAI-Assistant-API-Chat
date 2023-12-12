@@ -1,5 +1,7 @@
 // pages/api/auth/[...nextauth].ts
 import NextAuth, { type DefaultSession, type NextAuthOptions } from "next-auth";
+import { incrementSessionRefreshCount } from '@/app/utils/cloud/redisRestClient';
+
 
 import AzureADProvider from "next-auth/providers/azure-ad";
 
@@ -68,12 +70,19 @@ declare module "next-auth" {
 */
 const authOptions: NextAuthOptions = {
   callbacks: {
-    session: ({ session, token }) => {
+    session: async ({ session, token }) => {
       let error: string | undefined = session.error;
 
       if (!token?.email) {
         error = "Email is missing";
+        session.error = "Email is missing";
+        return session; // Return the modified session        
       }
+
+      console.log("Session-Refresh: ",token.email);
+      const dateKey = new Date().toISOString().slice(0, 7); // "YYYY-MM"
+      await incrementSessionRefreshCount(token.email, dateKey, "", "", "");
+
 
       return {
         ...session,

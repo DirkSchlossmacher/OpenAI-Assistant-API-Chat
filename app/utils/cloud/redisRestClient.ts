@@ -48,7 +48,10 @@ export const incrementSignInCount = async (
 
 export const incrementSessionRefreshCount = async (
   email: string | undefined,
-  dateKey: string
+  dateKey: string,
+  assistantId: string | undefined,
+  param: string | undefined,
+  path: string | undefined
 ): Promise<void> => {
   if (!email) {
     console.error('Email is undefined, cannot increment session refresh count.');
@@ -62,7 +65,7 @@ export const incrementSessionRefreshCount = async (
   }
 
   try {
-    await redis.hincrby(`session_refreshes:${email}`, dateKey, 1);
+    await redis.hincrby(`session_${param}-${assistantId}:${email}`, dateKey, 1);
     const timeValue = new Date().toISOString(); // full date
     await redis.hset(`monitoring`, { last_sessionInc: timeValue });
   } catch (error) {
