@@ -1,9 +1,9 @@
-// pages/api/downloadFile/[file_id].ts
+// app\api\downloadFile\[file_id]\route.ts
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import fetch from 'node-fetch';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextApiRequest, res: NextApiResponse) {
   // Extract the file_id from the URL path
   const { file_id } = req.query;
 
