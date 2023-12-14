@@ -1,18 +1,22 @@
-// app/api/downloadFile/[file_id]/route.ts
+// File: app/api/downloadFile/[file_id]/route.ts
 
 import { NextRequest, NextResponse } from 'next/server'; // Import NextRequest and NextResponse from 'next/server'
 import fetch from 'node-fetch';
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-  // Extract the file_id from the URL path
-  const { file_id } = req.query;
+export async function GET(request: NextRequest, { params }: { params: { file_id: string } }) {
+  // Extract the file_id from the dynamic route parameter
+  const { file_id } = params;
 
   // Validate the file_id
   if (!file_id) {
-    res.status(400).json({ error: 'A valid file ID is required' });
-    return;
+    // Return a response with a 400 status code
+    return new Response(JSON.stringify({ error: 'A valid file ID is required' }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
-
 
   // Construct the URL for the OpenAI API call
   const openaiUrl = `https://api.openai.com/v1/files/${file_id}/content`;
