@@ -1,14 +1,14 @@
-// app\api\downloadFile\[file_id]\route.ts
+// app/api/downloadFile/[file_id]/route.ts
 
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextRequest, NextResponse } from 'next/server'; // Import NextRequest from 'next/server'
 import fetch from 'node-fetch';
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
+export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequest and NextResponse
   // Extract the file_id from the URL path
-  const { file_id } = req.query;
+  const file_id = req.nextUrl.searchParams.get('file_id'); // Use `nextUrl.searchParams` to get query params
 
   // Validate the file_id
-  if (!file_id || typeof file_id !== 'string') {
+  if (!file_id) {
     return res.status(400).json({ error: 'A valid file ID is required' });
   }
 
@@ -31,9 +31,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     // Get the file content from the OpenAI API response
     const fileContent = await openaiResponse.text();
 
-    // You would need to determine the file name and extension here
-    // For example, you could store this information in a database or retrieve it from the OpenAI response
-    // For this example, let's assume you have a function that can fetch this info based on the file_id
+    // Assume you have a function that can fetch this info based on the file_id
     const { fileName, contentType } = await getFileInfo(file_id);
 
     // Set headers to prompt the browser to download the file
@@ -41,17 +39,18 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
     res.setHeader('Content-Type', contentType);
 
     // Send the file content
-    res.send(fileContent);
+    return new Response(fileContent, {
+      headers: res.getHeaders(), // Use the headers from the NextResponse object
+    });
   } catch (error) {
     // Handle any errors that occur during the API request
-    res.status(500).json({ error: 'Internal Server Error' });
+    return res.status(500).json({ error: 'Internal Server Error' });
   }
 }
 
 // Mock function to get file info - replace this with your actual logic to retrieve file info
 async function getFileInfo(fileId: string) {
   // Your logic to determine the file name and content type goes here
-  // For this example, we're returning a placeholder file name and a generic binary content type
   return {
     fileName: 'download.bin',
     contentType: 'application/octet-stream'
