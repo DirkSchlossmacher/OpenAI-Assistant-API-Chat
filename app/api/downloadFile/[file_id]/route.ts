@@ -3,21 +3,17 @@
 import { NextRequest, NextResponse } from 'next/server'; // Import NextRequest and NextResponse from 'next/server'
 import fetch from 'node-fetch';
 
-export async function GET(req: NextRequest) {
-  // Extract the file_id from the dynamic route parameter
-  const file_id = req.page.params?.file_id;
+export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+  // Extract the file_id from the URL path
+  const { file_id } = req.query;
 
   // Validate the file_id
   if (!file_id) {
-    // Return a response with a 400 status code
-    return new NextResponse(JSON.stringify({ error: 'A valid file ID is required' }), {
-      status: 400,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+    res.status(400).json({ error: 'A valid file ID is required' });
+    return;
   }
-  
+
+
   // Construct the URL for the OpenAI API call
   const openaiUrl = `https://api.openai.com/v1/files/${file_id}/content`;
 
