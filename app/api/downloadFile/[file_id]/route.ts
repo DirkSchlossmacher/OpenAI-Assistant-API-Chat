@@ -57,7 +57,12 @@ export async function GET(req: NextRequest) {
     });
   } catch (error) {
     // Handle any errors that occur during the API request
-    return res.status(500).json({ error: 'Internal Server Error' });
+    return new NextResponse(JSON.stringify({ error: 'Internal Server Error' }), {
+      status: 500,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }
 
