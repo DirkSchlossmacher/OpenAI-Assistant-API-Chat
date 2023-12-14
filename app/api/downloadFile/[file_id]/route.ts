@@ -5,7 +5,7 @@ import fetch from 'node-fetch';
 
 export async function GET(req: NextRequest) {
   // Extract the file_id from the URL path
-  const file_id = req.nextUrl.searchParams.get('file_id');
+  const { file_id } = req.query; // Use req.query to get dynamic route parameters
 
   // Validate the file_id
   if (!file_id) {
@@ -17,7 +17,6 @@ export async function GET(req: NextRequest) {
       },
     });
   }
-
   // Construct the URL for the OpenAI API call
   const openaiUrl = `https://api.openai.com/v1/files/${file_id}/content`;
 
