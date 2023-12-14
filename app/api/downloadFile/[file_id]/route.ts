@@ -1,11 +1,11 @@
 // app/api/downloadFile/[file_id]/route.ts
 
-import { NextRequest, NextResponse } from 'next/server'; // Import NextRequest from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'; // Import NextRequest and NextResponse from 'next/server'
 import fetch from 'node-fetch';
 
-export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequest and NextResponse
+export async function GET(req: NextRequest) {
   // Extract the file_id from the URL path
-  const file_id = req.nextUrl.searchParams.get('file_id'); // Use `nextUrl.searchParams` to get query params
+  const file_id = req.nextUrl.searchParams.get('file_id');
 
   // Validate the file_id
   if (!file_id) {
@@ -17,7 +17,6 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
       },
     });
   }
-
 
   // Construct the URL for the OpenAI API call
   const openaiUrl = `https://api.openai.com/v1/files/${file_id}/content`;
@@ -47,18 +46,14 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
     // Assume you have a function that can fetch this info based on the file_id
     const { fileName, contentType } = await getFileInfo(file_id);
 
-    // Set headers to prompt the browser to download the file
-    res.setHeader('Content-Disposition', `attachment; filename="${fileName}"`);
-    res.setHeader('Content-Type', contentType);
+    // Create a new response for the file download
+    const headers = new Headers();
+    headers.set('Content-Disposition', `attachment; filename="${fileName}"`);
+    headers.set('Content-Type', contentType);
 
-    // Send the file content
-    // Assuming you have the file content and file info
     return new NextResponse(fileContent, {
       status: 200, // or other appropriate status code
-      headers: {
-        'Content-Disposition': `attachment; filename="${fileName}"`,
-        'Content-Type': contentType,
-      },
+      headers: headers,
     });
   } catch (error) {
     // Handle any errors that occur during the API request
