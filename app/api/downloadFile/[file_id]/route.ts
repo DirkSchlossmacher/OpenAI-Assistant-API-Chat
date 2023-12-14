@@ -9,7 +9,13 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
 
   // Validate the file_id
   if (!file_id) {
-    return res.status(400).json({ error: 'A valid file ID is required' });
+    // Use NextResponse to create a response with a status code and body
+    return new NextResponse(JSON.stringify({ error: 'A valid file ID is required' }), {
+      status: 400,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   // Construct the URL for the OpenAI API call
@@ -39,8 +45,12 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
     res.setHeader('Content-Type', contentType);
 
     // Send the file content
-    return new Response(fileContent, {
-      headers: res.getHeaders(), // Use the headers from the NextResponse object
+    return new NextResponse(fileContent, {
+      status: 200, // or other appropriate status code
+      headers: {
+        'Content-Disposition': `attachment; filename="${fileName}"`,
+        'Content-Type': contentType,
+      },
     });
   } catch (error) {
     // Handle any errors that occur during the API request
