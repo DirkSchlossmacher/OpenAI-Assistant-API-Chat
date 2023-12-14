@@ -9,7 +9,7 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
 
   // Validate the file_id
   if (!file_id) {
-    // Use NextResponse to create a response with a status code and body
+    // Return a response with a 400 status code
     return new NextResponse(JSON.stringify({ error: 'A valid file ID is required' }), {
       status: 400,
       headers: {
@@ -17,6 +17,7 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
       },
     });
   }
+
 
   // Construct the URL for the OpenAI API call
   const openaiUrl = `https://api.openai.com/v1/files/${file_id}/content`;
@@ -31,7 +32,13 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
 
     // Check if the OpenAI API response is OK
     if (!openaiResponse.ok) {
-      return res.status(openaiResponse.status).json({ error: 'Failed to retrieve file content from OpenAI' });
+      // Return a response with the status code from the OpenAI response
+      return new NextResponse(JSON.stringify({ error: 'Failed to retrieve file content from OpenAI' }), {
+        status: openaiResponse.status,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
     }
 
     // Get the file content from the OpenAI API response
@@ -45,6 +52,7 @@ export async function GET(req: NextRequest, res: NextResponse) { // Use NextRequ
     res.setHeader('Content-Type', contentType);
 
     // Send the file content
+    // Assuming you have the file content and file info
     return new NextResponse(fileContent, {
       status: 200, // or other appropriate status code
       headers: {
