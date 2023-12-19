@@ -16,7 +16,7 @@ const Root: NextPage = () => {
   console.log("app/page.tsx: isAuthenticated:", isAuthenticated);
 
   if (!userHasAccess || !assistantID || !isAuthenticated) {
-    return <div>Access denied</div>;
+    return <div>Access denied - or Access Check pending (please wait)</div>;
   }
 
   return <Chat assistantID={assistantID} />;
