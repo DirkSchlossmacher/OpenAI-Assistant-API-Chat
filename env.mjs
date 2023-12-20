@@ -4,6 +4,7 @@ import { z } from "zod";
 const AssistantsConfigSchema = z.array(z.object({
     "assistantId": z.string(),
     "urlPath": z.string(),
+    "initialThreadMessage": z.string().optional(),
     "restriction": z.enum(["none", "emails"]).optional(),
     "emails": z.array(z.string().email()),
 }))
