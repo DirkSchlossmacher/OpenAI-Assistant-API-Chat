@@ -7,6 +7,8 @@ export const useUserHasAccess = (assistant: string) => {
   const { data: sessionData } = useSession();
 
   useEffect(() => {
+    console.log('userEmail pre:', localStorage.getItem('userEmail'));
+ 
     const config = env.NEXT_PUBLIC_ASSISTANTS_CONFIG.find(
       (config) => config.urlPath === assistant,
     );
