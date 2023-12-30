@@ -18,8 +18,13 @@ export const useUserHasAccess = (assistant: string) => {
       return;
     }
 
-    const requiresAuth = config.restriction === "emails";
+    if (sessionData?.user?.email) {
+      // Store the email in localStorage
+      localStorage.setItem('userEmail', sessionData.user.email);
+      console.log('userEmail:', localStorage.getItem('userEmail'));
+    }
 
+    const requiresAuth = config.restriction === "emails";
     if (!requiresAuth) {
       setUserHasAccess(true);
       return;
@@ -29,11 +34,6 @@ export const useUserHasAccess = (assistant: string) => {
       sessionData?.user?.email &&
       config.emails.includes(sessionData?.user?.email)
     ) {
-      if (sessionData?.user?.email) {
-        // Store the email in localStorage
-        localStorage.setItem('userEmail', sessionData.user.email);
-        console.log('userEmail:', localStorage.getItem('userEmail'));
-      }
       setUserHasAccess(true);
       return;
     }
