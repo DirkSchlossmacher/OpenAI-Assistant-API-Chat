@@ -70,7 +70,7 @@ export const createAssistant = async (
 
 // Creates a thread
 export const createThread = async (inputmessage) => {
-  console.log("Creating thread...");
+  console.log("Creating thread...: ", inputmessage);
   const response = await fetch("/api/createThread", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
