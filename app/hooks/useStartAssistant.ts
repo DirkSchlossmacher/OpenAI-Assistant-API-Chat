@@ -10,7 +10,9 @@ export const useStartAssistant = (
   useEffect(() => {
     if (assistantId && chatManager) {
       console.log("Assistant ID gefunden:", assistantId);
-      chatManager.startAssistantWithId(assistantId, initialThreadMessage);
+      console.log('userEmail pre startAssistantWithId:', localStorage.getItem('userEmail'));
+      const addEmail = " (User Email: "+localStorage.getItem('userEmail')+")";
+      chatManager.startAssistantWithId(assistantId, initialThreadMessage + addEmail);
     } else {
       console.warn("Assistant ID nicht gefunden");
     }

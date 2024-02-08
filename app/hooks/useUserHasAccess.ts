@@ -7,6 +7,8 @@ export const useUserHasAccess = (assistant: string) => {
   const { data: sessionData } = useSession();
 
   useEffect(() => {
+    console.log('userEmail pre:', localStorage.getItem('userEmail'));
+ 
     const config = env.NEXT_PUBLIC_ASSISTANTS_CONFIG.find(
       (config) => config.urlPath === assistant,
     );
@@ -16,8 +18,13 @@ export const useUserHasAccess = (assistant: string) => {
       return;
     }
 
-    const requiresAuth = config.restriction === "emails";
+    if (sessionData?.user?.email) {
+      // Store the email in localStorage
+      localStorage.setItem('userEmail', sessionData.user.email);
+      console.log('userEmail:', localStorage.getItem('userEmail'));
+    }
 
+    const requiresAuth = config.restriction === "emails";
     if (!requiresAuth) {
       setUserHasAccess(true);
       return;
