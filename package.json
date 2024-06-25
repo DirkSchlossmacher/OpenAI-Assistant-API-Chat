@@ -31,7 +31,7 @@
     "next": "^14.0.2",
     "next-auth": "^4.24.5",
     "next-connect": "^1.0.0",
-    "openai": "^4.19.0",
+    "openai": "^4.52.0",
     "postcss": "^8.4.31",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
