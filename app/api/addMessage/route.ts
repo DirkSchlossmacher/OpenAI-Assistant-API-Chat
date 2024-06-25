@@ -41,8 +41,8 @@ export async function POST(req: NextRequest) {
     if (input) {
       await openai.beta.threads.messages.create(threadId, {
         role: "user",
-        content: input,
-        file_ids: fileIds || [], // This is the new line
+        content: input //,
+        // file_ids: fileIds || [], // This is the new line
       });
       console.log("add_Message successfully");
       return NextResponse.json({ message: "Message created successfully" });
